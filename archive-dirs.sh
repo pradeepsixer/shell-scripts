@@ -28,7 +28,19 @@ printUsage() {
 }
 
 printHelp() {
-	echo "HELP INFO NEEDS TO BE UPDATED !!!!"
+	echo "OPTIONS"
+	echo "	--extension, -e"
+	echo "		Extension of the archive to be created. The default extension is \".zip\""
+	echo "	--directory, -d"
+	echo "		The directory which contains the directories to be archived. By default, this is present directory"
+	echo "	--include-directory, -i"
+	echo "		Include the subdirectory i.e. dirN as well into the dirN.zip archive. By default, the subdirectory is not included"
+	echo "	--output-directory, -o"
+	echo "		The directory where the archives are to be created. By default, this is the same as the parent directory (specified by -d)"
+	echo "	--help, -h"
+	echo "		Print Help Information"
+	echo "	--usage, -u"
+	echo "		Print Usage Information"
 }
 
 processFlags() {
@@ -111,3 +123,4 @@ compressDirectories() {
 
 processFlags "$@"
 compressDirectories
+exit 0
