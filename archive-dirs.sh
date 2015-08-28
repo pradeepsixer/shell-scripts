@@ -1,5 +1,5 @@
 #!/bin/sh
-# Archive Directiories Script
+# Archive Directories Script
 
 # PURPOSE
 #	To archive the directories' contents present within a directory. If there are 10 directories 'dir1', 'dir2', .... 'dir10' in a directory 'parentdir', then the contents within those 10 directories will be archived individually under the names 'dir1.zip', 'dir2.zip', .... (The archive extension can be changed)
@@ -36,7 +36,7 @@ printHelp() {
 	echo "	--include-directory, -i"
 	echo "		Include the subdirectory i.e. dirN as well into the dirN.zip archive. By default, the subdirectory is not included"
 	echo "	--output-directory, -o"
-	echo "		The directory where the archives are to be created. By default, this is the same as the parent directory (specified by -d)"
+	echo "		The directory where the archives are to be created. By default, this is the same as the parent directory (specified by -d). The directory is created if does not exist"
 	echo "	--help, -h"
 	echo "		Print Help Information"
 	echo "	--usage, -u"
@@ -72,6 +72,7 @@ processFlags() {
 					exit 1
 				fi
 				OUTPUT_DIR=$2
+				mkdir -p "${OUTPUT_DIR}"
 				shift 2
 			;;
 			-u|--usage)
@@ -100,12 +101,7 @@ compressDirectories() {
 	ORIGINAL_DIR=`pwd`
 	DIR_NAME=''
 
-	PREV_IFS=$IFS
-	IFS=$(echo '\n\b')
-
-	#find "$PARENT_DIR" -mindepth 1 -maxdepth 1 -type d -print0 | while read -d $'\0' EACHDIR	- ONLY FOR BASH, SINCE -d IS SUPPORTED ONLY BY IT
-	#find "$PARENT_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r EACHDIR - ALTERNATIVE CONSTRUCT
-	for EACHDIR in `find "$PARENT_DIR" -mindepth 1 -maxdepth 1 -type d`
+	find "$PARENT_DIR" -mindepth 1 -maxdepth 1 -type d | while read -r EACHDIR
 	do
 		DIR_NAME="${EACHDIR##*/}"
 		if [ "$INCLUDE_SUB_DIR" = "true" ]; then
@@ -118,7 +114,6 @@ compressDirectories() {
 		cd "$OLDPWD"
 	done
 	cd "$ORIGINAL_DIR"
-	IFS=PREV_IFS
 }
 
 processFlags "$@"
