@@ -2,7 +2,7 @@
 # Archive Directories Script
 
 # PURPOSE
-#	To archive the directories' contents present within a directory. If there are 10 directories 'dir1', 'dir2', .... 'dir10' in a directory 'parentdir', then the contents within those 10 directories will be archived individually under the names 'dir1.zip', 'dir2.zip', .... (The archive extension can be changed)
+#	To archive all the directories present within a directory. All the directories are archived separately. If there are 10 directories 'dir1', 'dir2', .... 'dir10' in a directory 'parentdir', then the contents within those 10 directories will be archived individually under the names 'dir1.zip', 'dir2.zip', .... (The archive extension can be changed)
 
 # OPTIONS
 # 	--extension, -e
